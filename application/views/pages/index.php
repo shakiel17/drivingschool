@@ -8,7 +8,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>CoreUI Free Bootstrap Admin Template</title>
+    <title>Flores 1 on 1 Driving Tutorial</title>
     <link rel="apple-touch-icon" sizes="57x57" href="<?=base_url();?>design/assets/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="<?=base_url();?>design/assets/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="<?=base_url();?>design/assets/favicon/apple-icon-72x72.png">
@@ -35,12 +35,13 @@
     <link href="<?=base_url();?>design/assets/css/examples.css" rel="stylesheet">
   </head>
   <body>
-    <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div class="bg-light min-vh-100 d-flex flex-row align-items-center" style="background-image:url(<?=base_url();?>design/assets/img/flores.jpg); background-size: cover;">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8">
             <div class="card-group d-block d-md-flex row">
               <div class="card col-md-7 p-4 mb-0">
+                <?=form_open(base_url()."authenticate");?>
                 <div class="card-body">
                   <h1>Login</h1>
                   <p class="text-medium-emphasis">Sign In to your account</p>
@@ -48,30 +49,31 @@
                       <svg class="icon">
                         <use xlink:href="<?=base_url();?>design/assets/@coreui/icons/svg/free.svg#cil-user"></use>
                       </svg></span>
-                    <input class="form-control" type="text" placeholder="Username">
+                    <input class="form-control" type="text" placeholder="Username" name="username">
                   </div>
                   <div class="input-group mb-4"><span class="input-group-text">
                       <svg class="icon">
                         <use xlink:href="<?=base_url();?>design/assets/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
                       </svg></span>
-                    <input class="form-control" type="password" placeholder="Password">
+                    <input class="form-control" type="password" placeholder="Password" name="password">
                   </div>
                   <div class="row">
                     <div class="col-6">
-                      <button class="btn btn-primary px-4" type="button">Login</button>
+                      <button class="btn btn-primary px-4" type="submit">Login</button>
                     </div>
                     <div class="col-6 text-end">
-                      <button class="btn btn-link px-0" type="button">Forgot password?</button>
+                      <!-- <button class="btn btn-link px-0" type="button">Forgot password?</button> -->
                     </div>
                   </div>
                 </div>
+                <?=form_close();?>
               </div>
-              <div class="card col-md-5 text-white bg-primary py-5">
+              <div class="card col-md-5 text-white bg-danger py-5">
                 <div class="card-body text-center">
                   <div>
                     <h2>Sign up</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <button class="btn btn-lg btn-outline-light mt-3" type="button">Register Now!</button>
+                    <p>"CONFIDENCE IN DRIVING"<br>LTO R12 ACCREDITED DRIVING SCHOOL</p>
+                    <a href="<?=base_url();?>register" class="btn btn-lg btn-outline-light mt-3">Register Now!</a>
                   </div>
                 </div>
               </div>
