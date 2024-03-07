@@ -13,5 +13,15 @@
             }
             $this->load->view('pages/'.$page);            
         }        
+        public function admin(){
+            $page = "index";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->user_login){
+                redirect(base_url()."admin/main");
+            }
+            $this->load->view('pages/admin/'.$page);            
+        }
     }
 ?>
