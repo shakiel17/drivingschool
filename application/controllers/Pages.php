@@ -63,7 +63,113 @@
             $this->load->view('templates/admin/navbar');
             $this->load->view('templates/admin/sidebar');
             $this->load->view('pages/admin/'.$page,$data);            
+            $this->load->view('templates/admin/modal');
             $this->load->view('templates/admin/footer');
+        }
+        public function manage_instructor(){
+            $page = "manage_instructor";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->admin_login){
+                
+            }else{
+                redirect(base_url()."admin");
+            }
+            
+            $data['instructors'] = $this->School_model->getAllInstructors();            
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/navbar');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('pages/admin/'.$page,$data);            
+            $this->load->view('templates/admin/modal');
+            $this->load->view('templates/admin/footer');
+        }
+        public function save_instructor(){
+            $save=$this->School_model->save_instructor();
+            echo "<script>";
+            if($save){
+                echo "alert('Instructor details successfully saved!');";
+            }else{
+                echo "alert('Unable to save instructor details!');";
+            }
+                echo "window.location='".base_url()."manage_instructor';</script>";
+            echo "</script>";
+        }
+        public function save_instructor_image(){
+            $save=$this->School_model->save_instructor_image();
+            echo "<script>";
+            if($save){
+                echo "alert('Instructor image successfully saved!');";
+            }else{
+                echo "alert('Unable to save instructor image!');";
+            }
+                echo "window.location='".base_url()."manage_instructor';</script>";
+            echo "</script>";
+        }
+        public function delete_instructor($id){
+            $save=$this->School_model->delete_instructor($id);
+            echo "<script>";
+            if($save){
+                echo "alert('Instructor details successfully deleted!');";
+            }else{
+                echo "alert('Unable to delete instructor details!');";
+            }
+                echo "window.location='".base_url()."manage_instructor';</script>";
+            echo "</script>";
+        }
+
+        public function manage_cars(){
+            $page = "manage_cars";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->admin_login){
+                
+            }else{
+                redirect(base_url()."admin");
+            }
+            
+            $data['cars'] = $this->School_model->getAllCars();            
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/navbar');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('pages/admin/'.$page,$data);            
+            $this->load->view('templates/admin/modal');
+            $this->load->view('templates/admin/footer');
+        }
+        public function save_car(){
+            $save=$this->School_model->save_car();
+            echo "<script>";
+            if($save){
+                echo "alert('Car details successfully saved!');";
+            }else{
+                echo "alert('Unable to save car details!');";
+            }
+                echo "window.location='".base_url()."manage_cars';</script>";
+            echo "</script>";
+        }
+        public function save_car_image(){
+            $save=$this->School_model->save_car_image();
+            echo "<script>";
+            if($save){
+                echo "alert('Car image successfully saved!');";
+            }else{
+                echo "alert('Unable to save instructor image!');";
+            }
+                echo "window.location='".base_url()."manage_cars';</script>";
+            echo "</script>";
+        }
+        public function delete_car($id){
+            $save=$this->School_model->delete_car($id);
+            echo "<script>";
+            if($save){
+                echo "alert('Car details successfully deleted!');";
+            }else{
+                echo "alert('Unable to delete car details!');";
+            }
+                echo "window.location='".base_url()."manage_cars';</script>";
+            echo "</script>";
         }
         //=====================================End of Admin Module==================================
     }

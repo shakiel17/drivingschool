@@ -53,6 +53,44 @@
       "responsive": true,
     });
   });
+  $('.addInstructor').click(function () {
+    document.getElementById('instructor_id').value = '';
+    document.getElementById('instructor_name').value = '';
+  });
+  $('.editInstructor').click(function () {
+    var data=$(this).data('id');
+    var id=data.split('_');
+    document.getElementById('instructor_id').value = id[0];
+    document.getElementById('instructor_name').value = id[1];
+  });
+  $('.addInstructorImage').click(function () {
+    var id=$(this).data('id');    
+    document.getElementById('instructor_image_id').value = id;    
+  });
+  $('.addCar').click(function () {
+    document.getElementById('car_id').value = '';
+    document.getElementById('car_description').value = '';
+    document.getElementById('car_brand').value = '';
+    document.getElementById('car_model').value = '';
+    document.getElementById('car_transtype').value = '';
+    document.getElementById('car_vehicletype').value = '';
+    document.getElementById('car_gastype').value = '';    
+  });
+  $('.editCar').click(function () {
+    var data=$(this).data('id');
+    var id=data.split('_');
+    document.getElementById('car_id').value = id[0];
+    document.getElementById('car_description').value = id[1];
+    document.getElementById('car_brand').value = id[2];
+    document.getElementById('car_model').value = id[3];
+    document.getElementById('car_transtype').value = id[4];
+    document.getElementById('car_vehicletype').value = id[5];
+    document.getElementById('car_gastype').value = id[6];    
+  });
+  $('.addCarImage').click(function () {
+    var id=$(this).data('id');    
+    document.getElementById('car_image_id').value = id;    
+  });
     </script>
   </body>
 </html>

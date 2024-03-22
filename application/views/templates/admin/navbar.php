@@ -89,7 +89,7 @@
                 <a class="dropdown-item"><i class="dropdown-item-icon icon-speech text-primary"></i> Messages</a>
                 <!-- <a class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i> Activity</a>
                 <a class="dropdown-item"><i class="dropdown-item-icon icon-question text-primary"></i> FAQ</a> -->
-                <a class="dropdown-item" href="<?=base_url();?>admin_logout" onclick="return confirm('Do you wish to logout?');return false;"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#admin_logout"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
               </div>
             </li>
           </ul>
