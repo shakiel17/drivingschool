@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Stellar Admin</title>
+    <title>Flores 1 on 1 Driving Tutorial</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="<?=base_url();?>design/admin/vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="<?=base_url();?>design/admin/vendors/flag-icon-css/css/flag-icon.min.css">
