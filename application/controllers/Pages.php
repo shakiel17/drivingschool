@@ -9,9 +9,72 @@
                 show_404();
             }
             if($this->session->user_login){
+                redirect(base_url()."user_main");
+            }
+            $this->load->view('pages/'.$page);            
+        }
+        public function register(){
+            $page = "register";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->user_login){
                 redirect(base_url()."main");
             }
             $this->load->view('pages/'.$page);            
+        }
+        public function user_authentication(){
+            $auth=$this->School_model->user_authenticate();
+            if($auth){
+                $userdata=array(
+                    'username' => $auth['username'],
+                    'fullname' => $auth['fullname'],
+                    'user_login' => true
+                );
+                $this->session->set_userdata($userdata);
+                redirect(base_url()."user_main");
+            }else{
+                echo "<script>alert('Invalid username and password!');window.location='".base_url()."';</script>";
+            }
+        }
+        public function save_registration(){
+            $save=$this->School_model->save_registration();            
+            if($save){
+                $fullname=$save['firstname']." ".$save['lastname'];
+                $userdata=array(
+                    'username' => $save['username'],
+                    'fullname' => $fullname,
+                    'user_login' => true
+                );
+                $this->session->set_userdata($userdata);
+                redirect(base_url()."user_main");
+            }else{
+                echo "<script>alert('Unable to create account!');window.location='".base_url()."';</script>";
+            }
+        }
+        public function user_logout(){
+            $this->session->unset_userdata('username');
+            $this->session->unset_userdata('fullname');
+            $this->session->unset_userdata('user_login');
+            redirect(base_url());
+        }
+        public function user_main(){
+            $page = "main";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->user_login){
+                
+            }else{
+                redirect(base_url());
+            }            
+            $data['cars'] = $this->School_model->getAllCars();            
+            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/sidebar');
+            $this->load->view('templates/user/navbar');            
+            $this->load->view('pages/'.$page,$data);            
+            $this->load->view('templates/user/modal');
+            $this->load->view('templates/user/footer');
         }
         //=====================================Start of Admin Module================================
         public function admin(){

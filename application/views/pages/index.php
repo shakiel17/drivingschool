@@ -41,7 +41,7 @@
           <div class="col-lg-8">
             <div class="card-group d-block d-md-flex row">
               <div class="card col-md-7 p-4 mb-0">
-                <?=form_open(base_url()."authenticate");?>
+                <?=form_open(base_url()."user_authentication");?>
                 <div class="card-body">
                   <h1>Login</h1>
                   <p class="text-medium-emphasis">Sign In to your account</p>

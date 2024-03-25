@@ -13,7 +13,7 @@
             }else{
                 return false;
             }
-        }
+        }        
         public function getAllEnrollees(){
             $result=$this->db->query("SELECT * FROM enrollee ORDER BY datearray DESC");
             return $result->result_array();
@@ -130,6 +130,55 @@
             }else{
                 return false;
             }
+        }
+        public function user_authenticate(){
+            $username=$this->input->post('username');
+            $password=$this->input->post('password');
+            $result=$this->db->query("SELECT * FROM `user` WHERE username='$username' AND password='$password'");
+            if($result->num_rows()>0){
+                return $result->row_array();
+            }else{
+                return false;
+            }
+        }
+        public function save_registration(){
+            $username=$this->input->post('username');
+            $password=$this->input->post('password');
+            $lastname=$this->input->post('lastname');
+            $firstname=$this->input->post('firstname');
+            $middlename=$this->input->post('middlename');
+            $gender=$this->input->post('gender');            
+            $birthdate=$this->input->post('birthdate');
+            $address=$this->input->post('address');
+            $email=$this->input->post('email');
+            $contactno=$this->input->post('contactno');
+            $customer_no=date('YmdHis');
+            $datearray=date('Y-m-d');
+            $timearray=date('H:i:s');
+            $fullname=$firstname." ".$lastname;
+            $check=$this->db->query("SELECT * FROM user WHERE username='$username'");
+            if($check->num_rows()>0){
+                return false;
+            }else{
+                $check=$this->db->query("SELECT * FROM customer WHERE email='$email' OR contactno='$contactno'");
+                if($check->num_rows()>0){
+                    return false;
+                }else{
+                    $result=$this->db->query("INSERT INTO customer(customer_no,lastname,firstname,middlename,gender,birthdate,`address`,email,contactno,datearray,timearray) VALUES('$customer_no','$lastname','$firstname','$middlename','$gender','$birthdate','$address','$email','$contactno','$datearray','$timearray')");
+                    if($result){
+                        $result=$this->db->query("INSERT INTO user(username,`password`,fullname,datearray,timearray) VALUES('$username','$password','$fullname','$datearray','$timearray')");
+                        if($result){
+                            return true;
+                        }else{
+                            $this->db->query("DELETE FROM customer WHERE customer_no='$customer_no'");
+                            return false;
+                        }
+                    }else{
+                        return false;
+                    }
+                }
+            }
+
         }
     }
 ?>
