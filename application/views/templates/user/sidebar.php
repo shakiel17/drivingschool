@@ -8,20 +8,20 @@
         </svg>
       </div>
       <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
-        <li class="nav-item"><a class="nav-link" href="index.html">
+        <li class="nav-item"><a class="nav-link" href="<?=base_url();?>user_main">
             <svg class="nav-icon">
-              <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
-            </svg> Dashboard<span class="badge badge-sm bg-info ms-auto">NEW</span></a></li>
-        <li class="nav-title">Theme</li>
-        <li class="nav-item"><a class="nav-link" href="colors.html">
+              <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-home"></use>
+            </svg> Home</a></li>
+        <li class="nav-title">Transactions</li>
+        <li class="nav-item"><a class="nav-link" href="<?=base_url();?>user_session">
             <svg class="nav-icon">
-              <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
-            </svg> Colors</a></li>
-        <li class="nav-item"><a class="nav-link" href="typography.html">
+              <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-calendar"></use>
+            </svg> Session</a></li>
+        <!-- <li class="nav-item"><a class="nav-link" href="<?=base_url();?>user_payment">
             <svg class="nav-icon">
-              <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
-            </svg> Typography</a></li>
-        <li class="nav-title">Components</li>
+              <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-money"></use>
+            </svg> Payments</a></li> -->
+        <!-- <li class="nav-title">Components</li>
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
             <svg class="nav-icon">
               <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
@@ -132,7 +132,7 @@
               <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-layers"></use>
             </svg> Try CoreUI
             <div class="fw-semibold">PRO</div>
-          </a></li>
+          </a></li> -->
       </ul>
       <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
     </div>
