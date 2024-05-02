@@ -121,7 +121,7 @@
             $data['instructors'] = $this->School_model->getAllInstructors();
             $data['cars'] = $this->School_model->getAllCars();
             $data['customers'] = $this->School_model->getAllCustomers();
-            $data['recent_enrollee'] = $this->School_model->getAllCustomers();
+            $data['recent_enrollee'] = $this->School_model->getRecentEnrollees();
             $this->load->view('templates/admin/header');
             $this->load->view('templates/admin/navbar');
             $this->load->view('templates/admin/sidebar');
