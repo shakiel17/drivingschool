@@ -14,7 +14,7 @@
         <div class="container-lg">
           <div class="row">
             <div class="col-sm-12 col-lg-3">
-              <div class="card text-white bg-primary">
+              <div class="card mb-4 text-white bg-primary">
                           <div class="card-body">
                             <div class="fs-4 fw-semibold"><?=count($instructors);?></div>
                             <div>Instructors</div>
@@ -59,9 +59,33 @@
                             </div>
                           </div>
                         </div>
+                      </div>                      
+                      <!-- /.col-->                      
+                    </div>         
+                    <div class="card mb-4">
+                      <div class="card-header"><b>My Sessions</b></div>
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                              <table class="table border mb-4 mt-4">
+                                <thead class="table-light fw-semibold">
+                                  <tr class="align-middle">
+                                    <th class="text-center">
+                                      #
+                                    </th>
+                                    <th>Instructor</th>
+                                    <th>Car</th>
+                                    <th>Date & Time</th>
+                                    <th class="text-center">Status</th>
+                                    <th>Action</th>                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                              </table>
                       </div>
-                      <!-- /.col-->
                     </div>
-          </div>                   
+                    </div>                               
+                  </div>                  
+                  </div>                   
         </div>
       </div>
