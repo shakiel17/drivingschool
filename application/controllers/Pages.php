@@ -68,7 +68,10 @@
             }else{
                 redirect(base_url());
             }            
-            $data['cars'] = $this->School_model->getAllCars();            
+            $data['enrollees'] = $this->School_model->getAllEnrollees();
+            $data['instructors'] = $this->School_model->getAllInstructors();
+            $data['cars'] = $this->School_model->getAllCars();
+            $data['customers'] = $this->School_model->getAllCustomers();            
             $this->load->view('templates/user/header');
             $this->load->view('templates/user/sidebar');
             $this->load->view('templates/user/navbar');            
