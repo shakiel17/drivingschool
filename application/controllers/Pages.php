@@ -79,6 +79,34 @@
             $this->load->view('templates/user/modal');
             $this->load->view('templates/user/footer');
         }
+        public function user_enrollment(){
+            $page = "user_enrollment";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->user_login){
+                
+            }else{
+                redirect(base_url());
+            }            
+            $user=$this->session->username;
+            $data['items'] = $this->School_model->getAllEnrollment($user);                       
+            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/sidebar');
+            $this->load->view('templates/user/navbar');            
+            $this->load->view('pages/'.$page,$data);            
+            $this->load->view('templates/user/modal');
+            $this->load->view('templates/user/footer');
+        }       
+        public function save_enrollment(){
+            $save=$this->School_model->save_enrollment();
+            if($save){
+                $this->session->set_flashdata('success','Enrollment details successfully saved!');
+            }else{
+                $this->session->set_flashdata('failed','Unable to save enrollment details!');
+            }
+            redirect(base_url()."user_enrollment");
+        } 
         //=====================================Start of Admin Module================================
         public function admin(){
             $page = "index";

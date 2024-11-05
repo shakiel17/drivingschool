@@ -13,10 +13,10 @@
               <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-home"></use>
             </svg> Home</a></li>
         <li class="nav-title">Transactions</li>
-        <li class="nav-item"><a class="nav-link" href="<?=base_url();?>user_session">
+        <li class="nav-item"><a class="nav-link" href="<?=base_url();?>user_enrollment">
             <svg class="nav-icon">
               <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-calendar"></use>
-            </svg> Session</a></li>
+            </svg> Enrollment</a></li>
         <!-- <li class="nav-item"><a class="nav-link" href="<?=base_url();?>user_payment">
             <svg class="nav-icon">
               <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-money"></use>

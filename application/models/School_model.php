@@ -166,7 +166,7 @@
                 }else{
                     $result=$this->db->query("INSERT INTO customer(customer_no,lastname,firstname,middlename,gender,birthdate,`address`,email,contactno,datearray,timearray) VALUES('$customer_no','$lastname','$firstname','$middlename','$gender','$birthdate','$address','$email','$contactno','$datearray','$timearray')");
                     if($result){
-                        $result=$this->db->query("INSERT INTO user(username,`password`,fullname,datearray,timearray) VALUES('$username','$password','$fullname','$datearray','$timearray')");
+                        $result=$this->db->query("INSERT INTO user(username,`password`,fullname,datearray,timearray,customer_no) VALUES('$username','$password','$fullname','$datearray','$timearray','$customer_no')");
                         if($result){
                             return true;
                         }else{
@@ -178,7 +178,32 @@
                     }
                 }
             }
-
         }
+        public function getAllEnrollment($user){
+            $result=$this->db->query("SELECT e.* FROM enrollee e INNER JOIN user u ON u.customer_no=e.customer_no WHERE u.username='$user'");
+            return $result->result_array();
+        }
+        public function save_enrollment(){
+            $user=$this->session->username;
+            $query=$this->db->query("SELECT * FROM user WHERE username='$user'");
+            $res=$query->row_array();
+            $customer_no=$res['customer_no'];
+            $regno=date('YmdHis');
+            $payment_type=$this->input->post('payment_type');
+            $amount=6000;
+            $date=date('Y-m-d');
+            $time=date('H:i:s');
+            $result=$this->db->query("INSERT INTO enrollee(regno,customer_no,payment_type,amount,datearray,timearray) VALUES('$regno','$customer_no','$payment_type','$amount','$date','$time')");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function getPayment($regno){
+            $result=$this->db->query("SELECT * FROM payment WHERE regno='$regno'");
+            return $result->result_array();
+        }
+
     }
 ?>

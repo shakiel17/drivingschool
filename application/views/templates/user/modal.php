@@ -15,3 +15,30 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="NewEnrollment" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLiveLabel">Enrollment Details</h5>
+          <button class="btn-close" type="button" data-coreui-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <?=form_open(base_url()."save_enrollment");?>
+      <div class="modal-body">
+        <div class="mb-4">
+          <label class="col-form-label">Payment Type</label>
+          <select name="payment_type" class="form-control" required>
+            <option value="">Select Payment Type</option>
+            <option value="full">Full Payment</option>
+            <option value="partial">Per Session</option>
+          </select>
+        </div>        
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-coreui-dismiss="modal">Close</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
+       </div>
+       <?=form_close();?>
+    </div>
+  </div>
+</div>
