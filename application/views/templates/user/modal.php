@@ -42,3 +42,42 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="NewSession" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLiveLabel">Session Details</h5>
+          <button class="btn-close" type="button" data-coreui-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <?=form_open(base_url()."new_session");?>
+        <input type="hidden" name="regno" value="<?=$regno;?>">
+      <div class="modal-body">
+        <div class="mb-4">
+          <label class="col-form-label">Transmission</label>
+          <select name="trans_type" class="form-control" required>
+            <option value="">Select Transmission Type</option> 
+            <option value="Automatic">Automatic</option>
+            <option value="Manual">Manual</option>
+          </select>          
+        </div>  
+        <div class="mb-4">
+          <label class="col-form-label">Instructor</label>
+          <select name="instructor" class="form-control" required>
+            <option value="">Select Instructor</option> 
+            <?php
+            foreach($teach as $item){
+              echo "<option value='$item[id]'>$item[fullname]</option>";
+            }
+            ?>
+          </select>
+        </div>        
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-coreui-dismiss="modal">Close</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
+       </div>
+       <?=form_close();?>
+    </div>
+  </div>
+</div>

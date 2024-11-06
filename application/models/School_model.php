@@ -204,6 +204,56 @@
             $result=$this->db->query("SELECT * FROM payment WHERE regno='$regno'");
             return $result->result_array();
         }
+        public function getAllSession($regno){
+            $result=$this->db->query("SELECT * FROM schedule WHERE regno='$regno' ORDER BY datearray ASC");
+            return $result->result_array();
+        }
+        public function getSingleCarDetails($id){
+            $result=$this->db->query("SELECT * FROM cars WHERE id='$id'");
+            return $result->row_array();
+        }
+        public function getSingleInstructorDetails($id){
+            $result=$this->db->query("SELECT * FROM instructor WHERE id='$id'");
+            return $result->row_array();
+        }
+        public function getAllCarByTransmission($type){
+            $result=$this->db->query("SELECT * FROM cars WHERE trans_type='$type'");
+            return $result->result_array();
+        }
+        public function add_session($session){
+            $regno = $this->input->post('regno');            
+            $instructor = $this->input->post('instructor');
+            $car=$this->input->post('car');
+            $datearray=$this->input->post('datearray');            
+            if($session=="AM"){
+                $check=$this->db->query("SELECT * FROM schedule WHERE regno='$regno' AND car_id='$car' AND instructor_id='$instructor' AND datearray='$datearray' AND starttime='08:00:00'");
+                if($check->num_rows()>0){
 
+                }else{
+                    $result=$this->db->query("INSERT INTO schedule(car_id,instructor_id,regno,datearray,starttime,endtime,`status`) VALUES('$car','$instructor','$regno','$datearray','08:00:00','09:30:00','pending')");
+                }                
+            }
+            if($session=="PM"){
+                $check=$this->db->query("SELECT * FROM schedule WHERE regno='$regno' AND car_id='$car' AND instructor_id='$instructor' AND datearray='$datearray' AND starttime='14:00:00'");
+                if($check->num_rows()>0){
+
+                }else{
+                    $result=$this->db->query("INSERT INTO schedule(car_id,instructor_id,regno,datearray,starttime,endtime,`status`) VALUES('$car','$instructor','$regno','$datearray','14:00:00','15:30:00','pending')");
+                }
+            }
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function remove_session($id){
+            $result=$this->db->query("DELETE FROM schedule WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 ?>

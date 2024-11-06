@@ -38,11 +38,12 @@
             }
         }
         public function save_registration(){
+            $username=$this->input->post('username');
             $save=$this->School_model->save_registration();            
             if($save){
                 $fullname=$save['firstname']." ".$save['lastname'];
                 $userdata=array(
-                    'username' => $save['username'],
+                    'username' => $username,
                     'fullname' => $fullname,
                     'user_login' => true
                 );
@@ -107,6 +108,139 @@
             }
             redirect(base_url()."user_enrollment");
         } 
+        public function user_session($regno){
+            $page = "user_session";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->user_login){
+                
+            }else{
+                redirect(base_url());
+            }    
+            $data['regno'] = $regno;                    
+            $data['items'] = $this->School_model->getAllSession($regno);  
+            $data['cars'] = $this->School_model->getAllCars();
+            $data['teach'] = $this->School_model->getAllInstructors();
+            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/sidebar');
+            $this->load->view('templates/user/navbar');            
+            $this->load->view('pages/'.$page,$data);            
+            $this->load->view('templates/user/modal',$data);
+            $this->load->view('templates/user/footer');
+        }
+
+        public function new_session(){
+            $page = "new_session";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->user_login){
+                
+            }else{
+                redirect(base_url());
+            }            
+            $regno = $this->input->post('regno');
+            $trans_type = $this->input->post('trans_type');
+            $instructor = $this->input->post('instructor');
+            $data['regno'] = $regno;
+            $data['trans_type'] = $trans_type;
+            $data['instructor'] = $instructor;
+            $data['car_id']="";
+            $data['items'] = $this->School_model->getAllCarByTransmission($trans_type);    
+            $data['car'] = array();  
+            $data['datetime'] = "";
+            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/sidebar');
+            $this->load->view('templates/user/navbar');            
+            $this->load->view('pages/'.$page,$data);            
+            $this->load->view('templates/user/modal');
+            $this->load->view('templates/user/footer');
+        }
+        public function select_car_session(){
+            $page = "new_session";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->user_login){
+                
+            }else{
+                redirect(base_url());
+            }            
+            $regno = $this->input->post('regno');
+            $trans_type = $this->input->post('trans_type');
+            $instructor = $this->input->post('instructor');
+            $car=$this->input->post('car');
+            $data['regno'] = $regno;
+            $data['trans_type'] = $trans_type;
+            $data['instructor'] = $instructor;
+            $data['car_id'] = $car;
+            $data['datetime'] = "";
+            $data['items'] = $this->School_model->getAllCarByTransmission($trans_type);
+            $data['car'] = $this->School_model->getSingleCarDetails($car);
+            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/sidebar');
+            $this->load->view('templates/user/navbar');            
+            $this->load->view('pages/'.$page,$data);            
+            $this->load->view('templates/user/modal');
+            $this->load->view('templates/user/footer');
+        }
+        public function select_session_datetime(){
+            $page = "new_session";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->user_login){
+                
+            }else{
+                redirect(base_url());
+            }            
+            $regno = $this->input->post('regno');
+            $trans_type = $this->input->post('trans_type');
+            $instructor = $this->input->post('instructor');
+            $car=$this->input->post('car');
+            $month=$this->input->post('month');
+            $year=$this->input->post('year');
+            if(isset($_POST['am_session'])){
+                $add=$this->School_model->add_session("AM");
+                if($add){
+                    echo "<script>alert('Session successfully added!');</script>";
+                }else{
+                    echo "<script>alert('Unable to add session!');</script>";
+                }                
+            }
+            if(isset($_POST['pm_session'])){
+                $add=$this->School_model->add_session("PM");
+                if($add){
+                    echo "<script>alert('Session successfully added!');</script>";
+                }else{
+                    echo "<script>alert('Unable to add session!');</script>";
+                }                
+            }
+            $data['regno'] = $regno;
+            $data['trans_type'] = $trans_type;
+            $data['instructor'] = $instructor;
+            $data['car_id'] = $car;
+            $data['datetime'] = $year."-".$month;
+            $data['items'] = $this->School_model->getAllCarByTransmission($trans_type);
+            $data['car'] = $this->School_model->getSingleCarDetails($car);
+            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/sidebar');
+            $this->load->view('templates/user/navbar');            
+            $this->load->view('pages/'.$page,$data);            
+            $this->load->view('templates/user/modal');
+            $this->load->view('templates/user/footer');
+        }
+        public function remove_session($id,$regno){
+            $remove=$this->School_model->remove_session($id);
+            if($remove){
+                $this->session->set_flashdata('success','Session successfully removed!');
+            }else{
+                $this->session->set_flashdata('failed','Unable to remove session details!');
+            }
+            redirect(base_url()."user_session/$regno");
+
+        }
         //=====================================Start of Admin Module================================
         public function admin(){
             $page = "index";
