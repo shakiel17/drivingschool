@@ -79,6 +79,7 @@ CREATE TABLE `customer` (
   `contactno` varchar(100) DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
+  `img` longblob,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
