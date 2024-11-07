@@ -47,6 +47,21 @@ CREATE TABLE `cars` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+/*Table structure for table `chat` */
+
+DROP TABLE IF EXISTS `chat`;
+
+CREATE TABLE `chat` (
+  `id` int(45) NOT NULL AUTO_INCREMENT,
+  `message` text DEFAULT NULL,
+  `sender` varchar(100) DEFAULT NULL,
+  `receiver` varchar(100) DEFAULT NULL,
+  `datearray` date DEFAULT NULL,
+  `timearray` time DEFAULT NULL,
+  `status` varchar(100) DEFAULT 'pending',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 /*Table structure for table `customer` */
 
 DROP TABLE IF EXISTS `customer`;
