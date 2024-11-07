@@ -103,13 +103,13 @@ CREATE TABLE `payment` (
   `invno` varchar(100) DEFAULT NULL,
   `regno` varchar(100) DEFAULT NULL,
   `amount` double DEFAULT NULL,
-  `status` varchar(100) DEFAULT NULL,
-  `remarks` varchar(100) DEFAULT NULL,
+  `status` varchar(100) DEFAULT 'pending',
+  `remarks` text DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   `img` longblob DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Table structure for table `schedule` */
 
@@ -126,7 +126,7 @@ CREATE TABLE `schedule` (
   `status` varchar(100) DEFAULT NULL,
   `notify` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Table structure for table `user` */
 

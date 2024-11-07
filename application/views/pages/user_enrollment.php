@@ -78,7 +78,7 @@
                                             echo "<td align='center'>".date('m/d/Y',strtotime($item['datearray']))." ".date('h:i A',strtotime($item['timearray']))."</td>";
                                             echo "<td align='center'>$item[status]</td>";
                                             ?>
-                                            <td align="center"><a href="" class="btn btn-primary btn-sm">Payment</a> <a href="<?=base_url();?>user_session/<?=$item['regno'];?>" class="btn btn-info btn-sm text-white">Session</a></td>
+                                            <td align="center"><a href="<?=base_url();?>user_payment/<?=$item['regno'];?>" class="btn btn-primary btn-sm">Payment</a> <a href="<?=base_url();?>user_session/<?=$item['regno'];?>" class="btn btn-info btn-sm text-white">Session</a></td>
                                             <?php
                                         echo "</tr>";
                                         $x++;

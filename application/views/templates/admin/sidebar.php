@@ -33,13 +33,7 @@
                 <span class="menu-title">Enrollees</span>
                 <i class="icon-people menu-icon"></i>
               </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?=base_url();?>manage_session">
-                <span class="menu-title">Sessions</span>
-                <i class="icon-book-open menu-icon"></i>
-              </a>
-            </li>
+            </li>            
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Settings</span>

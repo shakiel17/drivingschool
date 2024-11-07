@@ -255,5 +255,110 @@
                 return false;
             }
         }
+        public function getAllPaymentByRegNo($regno){
+            $result=$this->db->query("SELECT * FROM payment WHERE regno='$regno' ORDER BY datearray ASC");
+            return $result->result_array();
+        }
+        public function user_payment_save(){
+            $regno=$this->input->post('regno');
+            $invno=$this->input->post('invno');
+            $amount=$this->input->post('amount');
+            $remarks=$this->input->post('remarks');
+            $date=date('Y-m-d');
+            $time=date('H:i:s');
+            $fileName=basename($_FILES["file"]["name"]);
+            $fileType=pathinfo($fileName, PATHINFO_EXTENSION);
+            $allowTypes = array('jpg','png','jpeg','gif');
+            if(in_array($fileType,$allowTypes)){
+                $image = $_FILES["file"]["tmp_name"];
+                $imgContent=addslashes(file_get_contents($image));
+                $result=$this->db->query("INSERT INTO payment(invno,regno,amount,remarks,datearray,timearray,img) VALUES('$invno','$regno','$amount','$remarks','$date','$time','$imgContent')");
+            }else{
+                return false;
+            }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function remove_payment($id){
+            $result=$this->db->query("DELETE FROM payment WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function getAllActiveEnrollees(){
+            $result=$this->db->query("SELECT e.*,c.lastname,c.firstname FROM enrollee e INNER JOIN customer c ON c.customer_no=e.customer_no WHERE e.status <> 'completed' AND e.status <> 'cancel' GROUP BY customer_no ORDER BY e.datearray DESC");
+            return $result->result_array();
+        }
+        public function getSingleSession($id){
+            $result=$this->db->query("SELECT * FROM schedule WHERE id='$id'");
+            return $result->row_array();
+        }
+        public function update_session(){
+            $id=$this->input->post('sid');
+            $regno=$this->input->post('regno');
+            $car_id=$this->input->post('car');
+            $instructor=$this->input->post('instructor');
+            $datearray=$this->input->post('datearray');
+            $starttime=$this->input->post('starttime');
+            $endtime=$this->input->post('endtime');
+            $result=$this->db->query("UPDATE schedule SET car_id='$car_id',instructor_id='$instructor',datearray='$datearray',starttime='$starttime',endtime='$endtime',notify='0' WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+
+        }
+        public function update_session_status($id,$status){
+            $result=$this->db->query("UPDATE schedule SET `status`='$status' WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function getAllPaymentByInvoice($invno){
+            $result=$this->db->query("SELECT * FROM payment WHERE invno='$invno'");
+            return $result->row_array();
+        }
+
+        public function update_payment_status($invno){
+            $result=$this->db->query("UPDATE payment SET `status`='paid' WHERE invno='$invno'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function change_session_status($date,$time){
+            $query=$this->db->query("SELECT * FROM schedule WHERE datearray='$date' AND `status`='pending'");
+            if($query->num_rows()>0){
+                $items=$query->result_array();
+                foreach($items as $item){
+                    $id=$item['id'];
+                    $starttime=$item['starttime'];
+                    $endtime=$item['endtime'];
+                    if($time >= $starttime){
+                        $this->db->query("UPDATE schedule SET `status`='ongoing' WHERE id='$id'");
+                    }                   
+                }
+            }
+        }
+        public function notify_session(){
+            $datenow=date('Y-m-d');
+            $datetomorrow=date('Y-m-d',strtotime('1 day',strtotime($datenow)));
+            $query=$this->db->query("SELECT * FROM schedule WHERE datearray='$datetomorrow' AND notify='0'");
+            if($query->num_rows() > 0){
+                $row=$query->result_array();
+                foreach($row as $item){
+                    
+                }
+            }
+        }
     }
 ?>

@@ -49,6 +49,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+$route['print_invoice_summary/(:any)'] = 'pages/print_invoice_summary/$1';
+$route['print_invoice/(:any)'] = 'pages/print_invoice/$1';
+$route['update_payment_status/(:any)/(:any)'] = 'pages/update_payment_status/$1/$2';
+$route['view_proof_payment/(:any)'] = 'pages/view_proof_payment/$1';
+$route['manage_user_payment/(:any)'] = 'pages/manage_user_payment/$1';
+$route['update_session_status/(:any)/(:any)/(:any)'] = 'pages/update_session_status/$1/$2/$3';
+$route['remove_session_admin/(:any)/(:any)'] = 'pages/remove_session_admin/$1/$2';
+$route['update_session'] = 'pages/update_session';
+$route['edit_session/(:any)/(:any)'] = 'pages/edit_session/$1/$2';
+$route['manage_user_session/(:any)'] = 'pages/manage_user_session/$1';
+$route['manage_enrollee'] = 'pages/manage_enrollee';
+$route['remove_payment/(:any)/(:any)'] = 'pages/remove_payment/$1/$2';
+$route['user_payment_save'] = 'pages/user_payment_save';
+$route['user_payment/(:any)'] = 'pages/user_payment/$1';
 $route['remove_session/(:any)/(:any)'] = 'pages/remove_session/$1/$2';
 $route['select_session_datetime'] = 'pages/select_session_datetime';
 $route['select_car_session'] = 'pages/select_car_session';

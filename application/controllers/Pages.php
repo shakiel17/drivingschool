@@ -241,6 +241,44 @@
             redirect(base_url()."user_session/$regno");
 
         }
+        public function user_payment($regno){
+            $page = "user_payment";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->user_login){
+                
+            }else{
+                redirect(base_url());
+            }    
+            $data['regno'] = $regno;                    
+            $data['items'] = $this->School_model->getAllPaymentByRegNo($regno);              
+            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/sidebar');
+            $this->load->view('templates/user/navbar');            
+            $this->load->view('pages/'.$page,$data);            
+            $this->load->view('templates/user/modal',$data);
+            $this->load->view('templates/user/footer');
+        }
+        public function user_payment_save(){
+            $regno=$this->input->post('regno');
+            $remove=$this->School_model->user_payment_save();
+            if($remove){
+                $this->session->set_flashdata('success','Payment details successfully saved!');
+            }else{
+                $this->session->set_flashdata('failed','Unable to save payment details!');
+            }
+            redirect(base_url()."user_payment/$regno");
+        }
+        public function remove_payment($id,$regno){            
+            $remove=$this->School_model->remove_payment($id);
+            if($remove){
+                $this->session->set_flashdata('success','Payment details successfully removed!');
+            }else{
+                $this->session->set_flashdata('failed','Unable to remove payment details!');
+            }
+            redirect(base_url()."user_payment/$regno");
+        }
         //=====================================Start of Admin Module================================
         public function admin(){
             $page = "index";
@@ -287,6 +325,10 @@
             $data['cars'] = $this->School_model->getAllCars();
             $data['customers'] = $this->School_model->getAllCustomers();
             $data['recent_enrollee'] = $this->School_model->getRecentEnrollees();
+            $datenow=date('Y-m-d');
+            $timenow=date('H:i:s');
+            $this->School_model->change_session_status($datenow,$timenow);
+            $this->School_model->notify_session();
             $this->load->view('templates/admin/header');
             $this->load->view('templates/admin/navbar');
             $this->load->view('templates/admin/sidebar');
@@ -398,6 +440,160 @@
             }
                 echo "window.location='".base_url()."manage_cars';</script>";
             echo "</script>";
+        }
+        public function manage_enrollee(){
+            $page = "manage_enrollee";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->admin_login){
+                
+            }else{
+                redirect(base_url()."admin");
+            }
+            
+            $data['enrollees'] = $this->School_model->getAllActiveEnrollees();            
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/navbar');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('pages/admin/'.$page,$data);            
+            $this->load->view('templates/admin/modal');
+            $this->load->view('templates/admin/footer');
+        }
+        public function manage_user_session($regno){
+            $page = "manage_user_session";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->admin_login){
+                
+            }else{
+                redirect(base_url()."admin");
+            }
+            $data['regno'] = $regno;
+            $data['sessions'] = $this->School_model->getAllSession($regno);            
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/navbar');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('pages/admin/'.$page,$data);            
+            $this->load->view('templates/admin/modal');
+            $this->load->view('templates/admin/footer');
+        }
+        public function edit_session($id,$regno){
+            $page = "edit_session";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->admin_login){
+                
+            }else{
+                redirect(base_url()."admin");
+            }
+            $data['regno'] = $regno;
+            $data['sid'] = $id;
+            $data['session'] = $this->School_model->getSingleSession($id);            
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/navbar');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('pages/admin/'.$page,$data);            
+            $this->load->view('templates/admin/modal');
+            $this->load->view('templates/admin/footer');
+        }
+        public function update_session(){
+            $regno=$this->input->post('regno');            
+            $save=$this->School_model->update_session();
+            echo "<script>";
+            if($save){
+                echo "alert('session details successfully updated!');";
+            }else{
+                echo "alert('Unable to update session details!');";
+            }
+                echo "window.location='".base_url()."manage_user_session/$regno';</script>";
+            echo "</script>";
+        }
+        public function remove_session_admin($id,$regno){
+            $save=$this->School_model->remove_session($id);
+            echo "<script>";
+            if($save){
+                echo "alert('session details successfully removed!');";
+            }else{
+                echo "alert('Unable to remove session details!');";
+            }
+                echo "window.location='".base_url()."manage_user_session/$regno';</script>";
+            echo "</script>";
+        }
+        public function update_session_status($id,$regno,$status){
+            $save=$this->School_model->update_session_status($id,$status);
+            echo "<script>";
+            if($save){
+                echo "alert('Session status successfully updated!');";
+            }else{
+                echo "alert('Unable to update session status!');";
+            }
+                echo "window.location='".base_url()."manage_user_session/$regno';</script>";
+            echo "</script>";
+        }
+
+        public function manage_user_payment($regno){
+            $page = "manage_user_payment";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->admin_login){
+                
+            }else{
+                redirect(base_url()."admin");
+            }
+            $data['regno'] = $regno;
+            $data['sessions'] = $this->School_model->getAllPaymentByRegno($regno);            
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/navbar');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('pages/admin/'.$page,$data);            
+            $this->load->view('templates/admin/modal');
+            $this->load->view('templates/admin/footer');
+        }
+        public function view_proof_payment($invno){
+            $page = "view_image";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->admin_login){
+                
+            }else{
+                redirect(base_url()."admin");
+            }            
+            $data['item'] = $this->School_model->getAllPaymentByInvoice($invno);            
+            $this->load->view('pages/admin/'.$page,$data);                        
+        }
+        public function update_payment_status($invno,$regno){
+            $save=$this->School_model->update_payment_status($invno);
+            echo "<script>";
+            if($save){
+                echo "alert('Payment status successfully updated!');";
+            }else{
+                echo "alert('Unable to update payment status!');";
+            }
+                echo "window.location='".base_url()."manage_user_payment/$regno';</script>";
+            echo "</script>";
+        }
+        public function print_invoice($invno){
+            $page = "invoice";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            }           
+            $data['invno'] = $invno;
+            $data['item'] = $this->School_model->getAllPaymentByInvoice($invno);                        
+            $this->load->view('pages/admin/'.$page,$data);                                    
+        }
+        public function print_invoice_summary($regno){
+            $page = "invoice_summary";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            }           
+            $data['regno'] = $regno;
+            $data['items'] = $this->School_model->getAllPaymentByRegNo($regno);
+            $this->load->view('pages/admin/'.$page,$data);                                    
         }
         //=====================================End of Admin Module==================================
     }

@@ -18,7 +18,7 @@
             </form>
             <!-- <li class="nav-item"><a href="#" class="nav-link"><i class="icon-basket-loaded"></i></a></li>
             <li class="nav-item"><a href="#" class="nav-link"><i class="icon-chart"></i></a></li> -->
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link count-indicator message-dropdown" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                 <i class="icon-speech"></i>
                 <span class="count">7</span>
@@ -57,7 +57,7 @@
                   </div>
                 </a>
               </div>
-            </li>
+            </li> -->
             <!-- <li class="nav-item dropdown language-dropdown d-none d-sm-flex align-items-center">
               <a class="nav-link d-flex align-items-center dropdown-toggle" id="LanguageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                 <div class="d-inline-flex mr-3">
