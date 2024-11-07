@@ -150,3 +150,27 @@
           </div>
         </div>
       </div>
+
+      <div class="modal fade" id="EditReviews" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLiveLabel">Add/Edit Comments</h5>
+          <button class="btn-close" type="button" data-coreui-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <?=form_open(base_url()."save_reviews");?>
+        <input type="hidden" name="id" id="rev_id">        
+      <div class="modal-body">
+        <div class="mb-4">
+          <label class="col-form-label">Comments/Reviews</label>
+          <textarea name="comments" class="form-control" rows="4" id="rev_comments"></textarea>
+        </div>        
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-coreui-dismiss="modal">Close</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
+       </div>
+       <?=form_close();?>
+    </div>
+  </div>
+</div>

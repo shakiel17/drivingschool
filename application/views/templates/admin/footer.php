@@ -38,7 +38,7 @@
     <script>
         $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false, "sorting": false
+      "responsive": false, "lengthChange": false, "autoWidth": false, "sorting": false
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $("#example3").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false, "sorting": false
@@ -90,6 +90,13 @@
   $('.addCarImage').click(function () {
     var id=$(this).data('id');    
     document.getElementById('car_image_id').value = id;    
+  });
+  $('.progressReport').click(function(){
+    var data=$(this).data('id');
+    var id=data.split('_');
+    document.getElementById("rep_id").value = id[0];
+    document.getElementById("rep_regno").value = id[1];
+    document.getElementById("rep_remarks").value = id[2];    
   });
     </script>
   </body>

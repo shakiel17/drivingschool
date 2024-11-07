@@ -59,7 +59,7 @@
                   <div class="card-body">
                     <div class="d-sm-flex align-items-center mb-4">
                       <h4 class="card-title mb-sm-0">Recent Enrollees</h4>
-                      <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> View all Enrollees</a>
+                      <a href="<?=base_url();?>manage_enrollee" class="text-dark ml-auto mb-3 mb-sm-0"> View all Enrollees</a>
                     </div>
                     <div class="table-responsive">
                       <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">

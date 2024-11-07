@@ -19,6 +19,7 @@
                                     <th class="text-center">Date</th>
                                     <th class="text-center">Time</th>
                                     <th class="text-center">Status</th>
+                                    <th class="text-center" width="20%">Remarks</th>
                                     <th class="text-center">Action</th>
                           </tr>
                         </thead>
@@ -28,14 +29,21 @@
                                     foreach($sessions as $item){                                        
                                         $car=$this->School_model->getSingleCarDetails($item['car_id']);
                                         $teach=$this->School_model->getSingleInstructorDetails($item['instructor_id']);
+                                        $report=$this->School_model->getProgressReport($item['id']);
+                                        $remarks="";
+                                        if($report){
+                                          $remarks=$report['remarks'];
+                                        }
                                         $view="";
                                         $complete="style='display:none;'";
+                                        $report1="style='display:none;'";
                                         if($item['status']=="ongoing" || $item['status']=="complete"){
                                             $view="style='display:none;'";
                                             $complete="";
                                         }
                                         if($item['status']=="complete"){
                                           $complete="style='display:none;'";
+                                          $report1="";
                                         }
                                         echo "<tr>";
                                             echo "<td>$x.</td>";
@@ -44,11 +52,13 @@
                                             echo "<td align='center'>".date('m/d/Y',strtotime($item['datearray']))."</td>";
                                             echo "<td align='center'>".date('h:i A',strtotime($item['starttime']))." - ".date('h:i A',strtotime($item['endtime']))."</td>";
                                             echo "<td align='center'>$item[status]</td>";
+                                            echo "<td>$remarks</td>";
                                             ?>
                                             <td align="center">
                                                 <a href="<?=base_url();?>edit_session/<?=$item['id'];?>/<?=$regno;?>" class="btn btn-warning btn-sm" <?=$view;?>>Edit</a>
                                                 <a href="<?=base_url();?>update_session_status/<?=$item['id'];?>/<?=$regno;?>/complete" class="btn btn-info btn-sm" <?=$complete;?>>Complete Session</a>
                                                 <a href="<?=base_url();?>remove_session_admin/<?=$item['id'];?>/<?=$regno;?>" class="btn btn-danger btn-sm text-white" onclick="return confirm('Do you wish to remove this session?');return false;" <?=$view;?>>Remove</a>
+                                                <a href="#" data-toggle="modal" class="btn btn-success btn-sm progressReport" data-target="#ProgressReport" data-id="<?=$item['id'];?>_<?=$regno;?>_<?=$remarks;?>" <?=$report1;?>>Progress Notes</a>
                                             </td>
                                             <?php
                                         echo "</tr>";

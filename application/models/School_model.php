@@ -375,7 +375,7 @@
                     $name=$res['firstname']." ".$res['lastname'];
                     $subject="Driving Tutorial Session Update";
                     $from="Flores 1 on 1 Driving School";
-                    $message="Hello $name!, We are please to inform you that your driving session tomorrow ".date('F d, Y',strtotime($datetomorrow)).", ".date('h:i A',strtotime($item['starttime']))." to ".date('h:i A',strtotime($item['starttime']))." will commence and end respectively.";
+                    $message="Hello $name!, We are please to inform you that your driving session tomorrow ".date('F d, Y',strtotime($datetomorrow)).", ".date('h:i A',strtotime($item['starttime']))." to ".date('h:i A',strtotime($item['endtime']))." will commence and end respectively.";
                     $this->load->library('email',$config);
                     $this->email->set_newline("\r\n");
                     $this->email->from($from);
@@ -447,6 +447,61 @@
         }     
         public function update_chat_status($sender){
             $this->db->query("UPDATE chat SET `status`='seen' WHERE sender='$sender'");
+        }
+        public function getProgressReport($id){
+            $result=$this->db->query("SELECT * FROM progress WHERE session_id='$id'");
+            if($result->num_rows()>0){
+                return $result->row_array();   
+            }else{
+                return false;
+            }
+        }
+        public function save_remarks(){
+            $session_id=$this->input->post('session_id');
+            $remarks=$this->input->post('remarks');
+            $date=date('Y-m-d');
+            $time=date('H:i:s');
+            $check=$this->db->query("SELECT * FROM progress WHERE session_id='$session_id'");
+            if($check->num_rows()>0){
+                $result=$this->db->query("UPDATE progess SET remarks='$remarks',datearray='$date',timearray='$time' WHERE session_id='$session_id'");
+            }else{
+                $result=$this->db->query("INSERT INTO progress(session_id,remarks,datearray,timearray) VALUES('$session_id','$remarks','$date','$time')");
+            }
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function getAllUserReviews(){
+            $user=$this->session->username;
+            $result=$this->db->query("SELECT * FROM reviews WHERE username='$user'");
+            return $result->result_array();
+        }
+        public function save_reviews(){
+            $id=$this->input->post('id');
+            $comments=$this->input->post('comments');
+            $username=$this->session->username;
+            $date=date('Y-m-d');
+            $time=date('H:i:s');
+            if($id==""){
+                $result=$this->db->query("INSERT INTO reviews(username,comments,datearray,timearray) VALUES('$username','$comments','$date','$time')");
+            }else{
+                $result=$this->db->query("UPDATE reviews SET comments='$comments',datearray='$date',timearray='$time' WHERE id='$id'");
+            }
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function remove_comments($id){
+            $result=$this->db->query("DELETE FROM reviews WHERE id='$id'");
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 ?>

@@ -53,12 +53,12 @@
             <li class="nav-item"><a class="nav-link" href="buttons/button-group.html"><span class="nav-icon"></span> Buttons Group</a></li>
             <li class="nav-item"><a class="nav-link" href="buttons/dropdowns.html"><span class="nav-icon"></span> Dropdowns</a></li>
           </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="charts.html">
+        </li>-->
+        <li class="nav-item"><a class="nav-link" href="<?=base_url();?>manage_reviews">
             <svg class="nav-icon">
               <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-chart-pie"></use>
-            </svg> Charts</a></li>
-        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+            </svg> Comments/Reviews</a></li>
+        <!--<li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
             <svg class="nav-icon">
               <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-notes"></use>
             </svg> Forms</a>

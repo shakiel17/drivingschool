@@ -309,6 +309,40 @@
             $save=$this->School_model->save_chat();
             redirect(base_url()."user_chat");
         }
+        public function manage_reviews(){
+            $page = "user_review";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->user_login){
+                
+            }else{
+                redirect(base_url());
+            }                
+            $data['items'] = $this->School_model->getAllUserReviews();              
+            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/sidebar');
+            $this->load->view('templates/user/navbar');            
+            $this->load->view('pages/'.$page,$data);            
+            $this->load->view('templates/user/modal',$data);
+            $this->load->view('templates/user/footer');
+        }
+        public function save_reviews(){
+            $update=$this->School_model->save_reviews();
+            if($update){
+                echo "<script>alert('Comments/Reviews successfully saved!'); window.location='".base_url()."manage_reviews';</script>";
+            }else{
+                echo "<script>alert('Unable to save Comments/Reviews!'); window.location='".base_url()."manage_reviews';</script>";
+            }
+        }
+        public function remove_comments($id){
+            $remove=$this->School_model->remove_comments($id);
+            if($remove){
+                echo "<script>alert('Comments/Reviews successfully removed!'); window.location='".base_url()."manage_reviews';</script>";
+            }else{
+                echo "<script>alert('Unable to remove Comments/Reviews!'); window.location='".base_url()."manage_reviews';</script>";
+            }
+        }
         //=====================================Start of Admin Module================================
         public function admin(){
             $page = "index";
@@ -670,6 +704,16 @@
             $sender=$this->input->post('receiver');
             $save=$this->School_model->save_chat_admin();
             redirect(base_url()."view_chat/$sender");
+        }
+        public function save_remarks(){
+            $regno=$this->input->post('regno');
+            $save=$this->School_model->save_remarks();
+            if($save){
+                echo "<script>alert('Remarks successfully saved!');window.location='".base_url()."manage_user_session/$regno';</script>";
+            }else{
+                echo "<script>alert('Unable to save remarks!');window.location='".base_url()."manage_user_session/$regno';</script>";
+            }
+
         }
         //=====================================End of Admin Module==================================
     }
