@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v13.1.1 (64 bit)
-MySQL - 10.4.32-MariaDB : Database - drivingschool
+SQLyog Community v13.2.1 (64 bit)
+MySQL - 10.1.21-MariaDB : Database - drivingschool
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.32-MariaDB : Database - drivingschool
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`drivingschool` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`drivingschool` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `drivingschool`;
 
@@ -26,7 +26,7 @@ CREATE TABLE `admin` (
   `password` varchar(100) DEFAULT NULL,
   `fullname` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `cars` */
 
@@ -34,7 +34,7 @@ DROP TABLE IF EXISTS `cars`;
 
 CREATE TABLE `cars` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
-  `description` text DEFAULT NULL,
+  `description` text,
   `brand` varchar(100) DEFAULT NULL,
   `model` varchar(100) DEFAULT NULL,
   `trans_type` varchar(100) DEFAULT NULL,
@@ -43,9 +43,9 @@ CREATE TABLE `cars` (
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   `status` varchar(100) DEFAULT 'available',
-  `image` longblob DEFAULT NULL,
+  `image` longblob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `chat` */
 
@@ -53,14 +53,14 @@ DROP TABLE IF EXISTS `chat`;
 
 CREATE TABLE `chat` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
-  `message` text DEFAULT NULL,
+  `message` text,
   `sender` varchar(100) DEFAULT NULL,
   `receiver` varchar(100) DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   `status` varchar(100) DEFAULT 'pending',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `customer` */
 
@@ -74,13 +74,13 @@ CREATE TABLE `customer` (
   `middlename` varchar(100) DEFAULT NULL,
   `gender` varchar(100) DEFAULT NULL,
   `birthdate` date DEFAULT NULL,
-  `address` text DEFAULT NULL,
+  `address` text,
   `email` varchar(100) DEFAULT NULL,
   `contactno` varchar(100) DEFAULT NULL,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `enrollee` */
 
@@ -96,7 +96,7 @@ CREATE TABLE `enrollee` (
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `instructor` */
 
@@ -105,9 +105,9 @@ DROP TABLE IF EXISTS `instructor`;
 CREATE TABLE `instructor` (
   `id` int(45) NOT NULL AUTO_INCREMENT,
   `fullname` varchar(100) DEFAULT NULL,
-  `image` longblob DEFAULT NULL,
+  `image` longblob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `payment` */
 
@@ -119,12 +119,38 @@ CREATE TABLE `payment` (
   `regno` varchar(100) DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `status` varchar(100) DEFAULT 'pending',
-  `remarks` text DEFAULT NULL,
+  `remarks` text,
   `datearray` date DEFAULT NULL,
   `timearray` time DEFAULT NULL,
-  `img` longblob DEFAULT NULL,
+  `img` longblob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+/*Table structure for table `progress` */
+
+DROP TABLE IF EXISTS `progress`;
+
+CREATE TABLE `progress` (
+  `id` int(45) NOT NULL AUTO_INCREMENT,
+  `session_id` varchar(100) DEFAULT NULL,
+  `remarks` text,
+  `datearray` date DEFAULT NULL,
+  `timearray` time DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+/*Table structure for table `reviews` */
+
+DROP TABLE IF EXISTS `reviews`;
+
+CREATE TABLE `reviews` (
+  `id` int(45) NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) DEFAULT NULL,
+  `comments` text,
+  `datearray` date DEFAULT NULL,
+  `timearray` time DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `schedule` */
 
@@ -139,9 +165,9 @@ CREATE TABLE `schedule` (
   `starttime` time DEFAULT NULL,
   `endtime` time DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
-  `notify` int(11) DEFAULT 0,
+  `notify` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `user` */
 
@@ -156,7 +182,7 @@ CREATE TABLE `user` (
   `timearray` time DEFAULT NULL,
   `customer_no` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
