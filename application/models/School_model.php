@@ -503,5 +503,9 @@
                 return false;
             }
         }
+        public function getAllReviews(){
+            $result=$this->db->query("SELECT r.comments,r.datearray,r.timearray,c.lastname,c.firstname,r.username FROM reviews r INNER JOIN user u ON u.username=r.username INNER JOIN customer c ON c.customer_no=u.customer_no ORDER BY r.datearray DESC");
+            return $result->result_array();
+        }
     }
 ?>

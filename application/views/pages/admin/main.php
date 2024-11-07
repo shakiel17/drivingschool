@@ -93,5 +93,34 @@
                 </div>
               </div>
             </div>
+
+
+
+
+            <div class="row">
+              <div class="col-sm-12 col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-sm-flex align-items-center mb-4">
+                      <h4 class="card-title mb-sm-0">Comments/Reviews</h4>                      
+                    </div>
+                    <div class="table-responsive" >
+                    <div style="overflow:scroll; height:500px;">
+                      <table border="0" cellspacing="0" cellpadding="1" width="100%">
+                        <?php
+                        foreach($reviews as $item){
+                          echo "<tr>";
+                            echo "<td><small>$item[firstname] $item[lastname]<br><b>@$item[username]</b></small><br>$item[comments]<br><small>".date('m/d/Y',strtotime($item['datearray']))." ".date('h:i A',strtotime($item['timearray']))."</small></td>";
+                          echo "</tr>";
+                        }
+                        ?>                          
+                      </table>
+                      </div>
+                    </div>                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
           <!-- content-wrapper ends -->

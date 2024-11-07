@@ -393,6 +393,7 @@
             $timenow=date('H:i:s');
             $this->School_model->change_session_status($datenow,$timenow);
             $this->School_model->notify_session();
+            $data['reviews'] = $this->School_model->getAllReviews();
             $this->load->view('templates/admin/header');
             $this->load->view('templates/admin/navbar');
             $this->load->view('templates/admin/sidebar');
