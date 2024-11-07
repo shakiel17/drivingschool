@@ -40,7 +40,7 @@
         <div class="row justify-content-center">
           <div class="col-md-6">
             <div class="card mb-4 mx-4">
-                <?=form_open(base_url()."save_registration");?>
+                <?=form_open_multipart(base_url()."save_registration");?>
               <div class="card-body p-4">
                 <h1>Register</h1>
                 <p class="text-medium-emphasis">Create your account</p>
@@ -77,6 +77,9 @@
                 </div>
                 <div class="input-group mb-3">
                   <input class="form-control" type="text" placeholder="Contact No." name="contactno">
+                </div>
+                <div class="input-group mb-3">
+                  <input class="form-control" type="file" placeholder="Contact No." name="file">
                 </div>
                 <button class="btn btn-block btn-success" type="submit">Create Account</button> <a class="btn btn-block btn-primary" href="<?=base_url();?>">Login</a>
               </div>

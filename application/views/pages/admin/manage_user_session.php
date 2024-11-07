@@ -37,6 +37,7 @@
                                         $view="";
                                         $complete="style='display:none;'";
                                         $report1="style='display:none;'";
+                                        $refund="style='display:none;'";       
                                         if($item['status']=="ongoing" || $item['status']=="complete"){
                                             $view="style='display:none;'";
                                             $complete="";
@@ -44,6 +45,15 @@
                                         if($item['status']=="complete"){
                                           $complete="style='display:none;'";
                                           $report1="";
+                                        }
+                                        if($item['status']=="pending"){
+                                          $refund="";                                          
+                                        }
+                                        if($item['status']=="refund"){
+                                          $complete="style='display:none;'";
+                                          $report1="style='display:none;'";
+                                          $refund="style='display:none;'";
+                                          $view="style='display:none;'";                                               
                                         }
                                         echo "<tr>";
                                             echo "<td>$x.</td>";
@@ -59,6 +69,7 @@
                                                 <a href="<?=base_url();?>update_session_status/<?=$item['id'];?>/<?=$regno;?>/complete" class="btn btn-info btn-sm" <?=$complete;?>>Complete Session</a>
                                                 <a href="<?=base_url();?>remove_session_admin/<?=$item['id'];?>/<?=$regno;?>" class="btn btn-danger btn-sm text-white" onclick="return confirm('Do you wish to remove this session?');return false;" <?=$view;?>>Remove</a>
                                                 <a href="#" data-toggle="modal" class="btn btn-success btn-sm progressReport" data-target="#ProgressReport" data-id="<?=$item['id'];?>_<?=$regno;?>_<?=$remarks;?>" <?=$report1;?>>Progress Notes</a>
+                                                <a href="<?=base_url();?>update_session_status/<?=$item['id'];?>/<?=$regno;?>/refund" class="btn btn-info btn-sm" <?=$refund;?>>Refund Session</a>
                                             </td>
                                             <?php
                                         echo "</tr>";

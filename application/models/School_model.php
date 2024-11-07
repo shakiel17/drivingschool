@@ -164,18 +164,27 @@
                 if($check->num_rows()>0){
                     return false;
                 }else{
-                    $result=$this->db->query("INSERT INTO customer(customer_no,lastname,firstname,middlename,gender,birthdate,`address`,email,contactno,datearray,timearray) VALUES('$customer_no','$lastname','$firstname','$middlename','$gender','$birthdate','$address','$email','$contactno','$datearray','$timearray')");
-                    if($result){
-                        $result=$this->db->query("INSERT INTO user(username,`password`,fullname,datearray,timearray,customer_no) VALUES('$username','$password','$fullname','$datearray','$timearray','$customer_no')");
+                    $fileName=basename($_FILES["file"]["name"]);
+                    $fileType=pathinfo($fileName, PATHINFO_EXTENSION);
+                    $allowTypes = array('jpg','png','jpeg','gif');
+                    if(in_array($fileType,$allowTypes)){
+                        $image = $_FILES["file"]["tmp_name"];
+                        $imgContent=addslashes(file_get_contents($image));
+                        $result=$this->db->query("INSERT INTO customer(customer_no,lastname,firstname,middlename,gender,birthdate,`address`,email,contactno,datearray,timearray,img) VALUES('$customer_no','$lastname','$firstname','$middlename','$gender','$birthdate','$address','$email','$contactno','$datearray','$timearray','$imgContent')");
                         if($result){
-                            return true;
+                            $result=$this->db->query("INSERT INTO user(username,`password`,fullname,datearray,timearray,customer_no) VALUES('$username','$password','$fullname','$datearray','$timearray','$customer_no')");
+                            if($result){
+                                return true;
+                            }else{
+                                $this->db->query("DELETE FROM customer WHERE customer_no='$customer_no'");
+                                return false;
+                            }
                         }else{
-                            $this->db->query("DELETE FROM customer WHERE customer_no='$customer_no'");
                             return false;
                         }
                     }else{
                         return false;
-                    }
+                    }                     
                 }
             }
         }
@@ -506,6 +515,24 @@
         public function getAllReviews(){
             $result=$this->db->query("SELECT r.comments,r.datearray,r.timearray,c.lastname,c.firstname,r.username FROM reviews r INNER JOIN user u ON u.username=r.username INNER JOIN customer c ON c.customer_no=u.customer_no ORDER BY r.datearray DESC");
             return $result->result_array();
+        }
+        public function change_picture(){
+            $customer_no=$this->input->post('customer_no');
+            $fileName=basename($_FILES["file"]["name"]);
+            $fileType=pathinfo($fileName, PATHINFO_EXTENSION);
+            $allowTypes = array('jpg','png','jpeg','gif');
+            if(in_array($fileType,$allowTypes)){
+                $image = $_FILES["file"]["tmp_name"];
+                $imgContent=addslashes(file_get_contents($image));
+                $result=$this->db->query("UPDATE customer SET `img`='$imgContent' WHERE customer_no='$customer_no'");            
+            }else{
+                return false;
+            }            
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 ?>

@@ -28,9 +28,14 @@
                   <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-envelope-open"></use>
                 </svg></a></li> -->
           </ul>
+          <?php
+          $username=$this->session->username;
+          $query=$this->School_model->db->query("SELECT c.*,u.* FROM customer c INNER JOIN user u ON u.customer_no=c.customer_no WHERE u.username='$username'");
+          $prof=$query->row_array();
+          ?>
           <ul class="header-nav ms-3">
             <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <div class="avatar avatar-md"><img class="avatar-img" src="<?=base_url();?>design/assets/img/avatars/8.jpg" alt="user@email.com"></div>
+                <div class="avatar avatar-md"><img class="avatar-img" src="data:image/jpg;charset=utf8;base64,<?=base64_encode($prof['img']);?>" alt="user@email.com"></div>
               </a>
               <div class="dropdown-menu dropdown-menu-end pt-0">
                 <!-- <div class="dropdown-header bg-light py-2">
@@ -54,10 +59,10 @@
                   <svg class="icon me-2">
                     <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-user"></use>
                   </svg> Profile</a>
-                  <!-- <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="#" data-coreui-toggle="modal" data-coreui-target="#ChangePicture">
                   <svg class="icon me-2">
                     <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
-                  </svg> Settings</a> -->
+                  </svg> Change Picture</a>
                   <!-- <a class="dropdown-item" href="<?=base_url();?>user_payment">
                   <svg class="icon me-2">
                     <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-credit-card"></use>

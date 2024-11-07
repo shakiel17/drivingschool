@@ -343,6 +343,14 @@
                 echo "<script>alert('Unable to remove Comments/Reviews!'); window.location='".base_url()."manage_reviews';</script>";
             }
         }
+        public function change_picture(){
+            $update=$this->School_model->change_picture();
+            if($update){
+                echo "<script>alert('User Profile picture successfully updated!'); window.history.back();</script>";
+            }else{
+                echo "<script>alert('Unable to update user profile pciture!'); window.history.back();</script>";
+            }
+        }
         //=====================================Start of Admin Module================================
         public function admin(){
             $page = "index";
