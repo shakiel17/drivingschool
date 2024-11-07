@@ -81,3 +81,72 @@
     </div>
   </div>
 </div>
+
+            <?php
+            $username=$this->session->username;
+            $query=$this->School_model->db->query("SELECT c.*,u.* FROM customer c INNER JOIN user u ON u.customer_no=c.customer_no WHERE u.username='$username'");
+            $profile=$query->row_array();
+            ?>
+      <div class="modal fade" id="UserProfile" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLiveLabel">User Profile</h5>
+                <button class="btn-close" type="button" data-coreui-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <?=form_open(base_url()."update_user_profile");?> 
+              <input type="hidden" name="customer_no" value="<?=$profile['customer_no'];?>">             
+            <div class="modal-body">
+              <div class="mb-2">
+                <label class="col-form-label">Last Name</label>
+                <input type="text" name="lastname" class="form-control" value="<?=$profile['lastname'];?>">
+              </div>
+              <div class="mb-2">
+                <label class="col-form-label">First Name</label>
+                <input type="text" name="firstname" class="form-control" value="<?=$profile['firstname'];?>">
+              </div>        
+              <div class="mb-2">
+                <label class="col-form-label">Middle Name</label>
+                <input type="text" name="middlename" class="form-control" value="<?=$profile['middlename'];?>">
+              </div>
+              <div class="mb-2">
+                <label class="col-form-label">Gender</label>
+                <select name="gender" class="form-select">
+                  <option value="<?=$profile['gender'];?>"><?=$profile['gender'];?></option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div class="mb-2">
+                <label class="col-form-label">Date of Birth</label>
+                <input type="date" name="birthdate" class="form-control" value="<?=$profile['birthdate'];?>">
+              </div>
+              <div class="mb-2">
+                <label class="col-form-label">Address</label>
+                <textarea name="address" class="form-control" rows="3"><?=$profile['address'];?></textarea>
+              </div>
+              <div class="mb-2">
+                <label class="col-form-label">Email</label>
+                <input type="text" name="email" class="form-control" value="<?=$profile['email'];?>">
+              </div>
+              <div class="mb-2">
+                <label class="col-form-label">Contact No.</label>
+                <input type="text" name="contactno" class="form-control" value="<?=$profile['contactno'];?>">
+              </div>
+              <div class="mb-2">
+                <label class="col-form-label">Username</label>
+                <input type="text" name="username" class="form-control" value="<?=$profile['username'];?>">
+              </div>
+              <div class="mb-2">
+                <label class="col-form-label">Password</label>
+                <input type="password" name="password" class="form-control" value="<?=$profile['password'];?>">
+              </div>
+            </div>            
+            <div class="modal-footer">
+              <button class="btn btn-secondary" type="button" data-coreui-dismiss="modal">Close</button>
+              <button class="btn btn-primary" type="submit">Update</button>
+            </div>
+            <?=form_close();?>
+          </div>
+        </div>
+      </div>

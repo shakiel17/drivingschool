@@ -49,6 +49,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+$route['save_chat_admin'] = 'pages/save_chat_admin';
+$route['view_chat/(:any)'] = 'pages/view_chat/$1';
+$route['manage_chat'] = 'pages/manage_chat';
+$route['save_chat'] = 'pages/save_chat';
+$route['user_chat'] = 'pages/user_chat';
+$route['update_user_profile'] = 'pages/update_user_profile';
 $route['print_invoice_summary/(:any)'] = 'pages/print_invoice_summary/$1';
 $route['print_invoice/(:any)'] = 'pages/print_invoice/$1';
 $route['update_payment_status/(:any)/(:any)'] = 'pages/update_payment_status/$1/$2';

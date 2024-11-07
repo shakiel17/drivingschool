@@ -75,11 +75,26 @@
                                     <th>Instructor</th>
                                     <th>Car</th>
                                     <th>Date & Time</th>
-                                    <th class="text-center">Status</th>
-                                    <th>Action</th>                                    
+                                    <th class="text-center">Status</th>                                                                     
                                   </tr>
                                 </thead>
                                 <tbody>
+                                  <?php
+                                  $x=1;
+                                  $username=$this->session->username;
+                                  $query=$this->School_model->db->query("SELECT i.fullname,c.description,s.datearray,s.starttime,s.endtime,s.status,s.regno FROM schedule s INNER JOIN enrollee e ON e.regno=s.regno INNER JOIN instructor i ON i.id=s.instructor_id INNER JOIN cars c ON c.id=s.car_id INNER JOIN user cs ON cs.customer_no=e.customer_no WHERE cs.username='$username' ORDER BY s.datearray DESC");
+                                  $result=$query->result_array();
+                                  foreach($result as $item){
+                                    echo "<tr>";
+                                      echo "<td>$x.</td>";
+                                      echo "<td>$item[fullname]</td>";
+                                      echo "<td>$item[description]</td>";
+                                      echo "<td>$item[datearray] $item[starttime]-$item[endtime]</td>";
+                                      echo "<td>$item[status]</td>";                                      
+                                    echo "</tr>";
+                                    $x++;
+                                  }
+                                  ?>
                                 </tbody>
                               </table>
                       </div>

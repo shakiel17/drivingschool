@@ -24,7 +24,7 @@
             ?>
                 <div class="alert alert-danger"><?=$this->session->failed;?></div>
             <?php
-            }
+            }          
             ?>
           <div class="row">
             <div class="col-sm-12 col-lg-12">                      
@@ -33,7 +33,17 @@
                         <table width="100%" border="0">
                             <tr>
                                 <td><b>Enrollment History</b></td>
-                                <td align="right"><a href="<?=base_url();?>new_enrollment" class="btn btn-success btn-sm text-white" data-coreui-toggle="modal" data-coreui-target="#NewEnrollment">New Enrollment</a></td>
+                                <td align="right">
+                                  <?php
+                                  if(count($items)>0){
+
+                                  }else{
+                                    ?>
+                                    <a href="<?=base_url();?>new_enrollment" class="btn btn-success btn-sm text-white" data-coreui-toggle="modal" data-coreui-target="#NewEnrollment">New Enrollment</a>
+                                    <?php
+                                  }
+                                  ?>                                  
+                                </td>
                             </tr>
                         </table>
                         

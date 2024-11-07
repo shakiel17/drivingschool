@@ -279,6 +279,36 @@
             }
             redirect(base_url()."user_payment/$regno");
         }
+        public function update_user_profile(){
+            $update=$this->School_model->update_profile();
+            if($update){
+                echo "<script>alert('User Profile successfully updated!'); window.history.back();</script>";
+            }else{
+                echo "<script>alert('Unable to update user profile!'); window.history.back();</script>";
+            }
+        }
+        public function user_chat(){
+            $page = "user_chat";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->user_login){
+                
+            }else{
+                redirect(base_url());
+            }                
+            $data['items'] = $this->School_model->getAllUserChat();              
+            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/sidebar');
+            $this->load->view('templates/user/navbar');            
+            $this->load->view('pages/'.$page,$data);            
+            $this->load->view('templates/user/modal',$data);
+            $this->load->view('templates/user/footer');
+        }
+        public function save_chat(){            
+            $save=$this->School_model->save_chat();
+            redirect(base_url()."user_chat");
+        }
         //=====================================Start of Admin Module================================
         public function admin(){
             $page = "index";
@@ -594,6 +624,52 @@
             $data['regno'] = $regno;
             $data['items'] = $this->School_model->getAllPaymentByRegNo($regno);
             $this->load->view('pages/admin/'.$page,$data);                                    
+        }
+        public function manage_chat(){
+            $page = "manage_chat";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->admin_login){
+                
+            }else{
+                redirect(base_url()."admin");
+            }
+            
+            $data['messages'] = $this->School_model->getAllMessages();
+            $data['sender'] = "";
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/navbar');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('pages/admin/'.$page,$data);            
+            $this->load->view('templates/admin/modal');
+            $this->load->view('templates/admin/footer');
+        }
+        public function view_chat($sender){
+            $page = "manage_chat";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            }
+            if($this->session->admin_login){
+                
+            }else{
+                redirect(base_url()."admin");
+            }
+            
+            $data['messages'] = $this->School_model->getAllMessages();
+            $this->School_model->update_chat_status($sender);
+            $data['sender'] = $sender;
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/navbar');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('pages/admin/'.$page,$data);            
+            $this->load->view('templates/admin/modal');
+            $this->load->view('templates/admin/footer');
+        }
+        public function save_chat_admin(){    
+            $sender=$this->input->post('receiver');
+            $save=$this->School_model->save_chat_admin();
+            redirect(base_url()."view_chat/$sender");
         }
         //=====================================End of Admin Module==================================
     }

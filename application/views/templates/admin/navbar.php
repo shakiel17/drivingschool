@@ -86,7 +86,7 @@
                   <p class="font-weight-light text-muted mb-0">adminflores1on1dt@gmail.com</p>
                 </div>
                 <!-- <a class="dropdown-item"><i class="dropdown-item-icon icon-user text-primary"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a> -->
-                <a class="dropdown-item"><i class="dropdown-item-icon icon-speech text-primary"></i> Messages</a>
+                <a class="dropdown-item" href="<?=base_url();?>manage_chat"><i class="dropdown-item-icon icon-speech text-primary"></i> Chat Messages</a>
                 <!-- <a class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i> Activity</a>
                 <a class="dropdown-item"><i class="dropdown-item-icon icon-question text-primary"></i> FAQ</a> -->
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#admin_logout"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>

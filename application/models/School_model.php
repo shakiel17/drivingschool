@@ -350,15 +350,103 @@
             }
         }
         public function notify_session(){
+            $config = array(
+                'protocol' => 'smtp',
+                'smtp_host' => 'ssl://smtp.googlemail.com',
+                'smtp_port' => 465,
+                'smtp_user' => 'easykill.aboy@gmail.com',
+                'smtp_pass' => 'ngfpdqyrfvoffhur',
+                'mailtype' => 'text',
+                'charset' => 'iso-8859-1',
+                'wordwrap' => TRUE
+            );
+
             $datenow=date('Y-m-d');
             $datetomorrow=date('Y-m-d',strtotime('1 day',strtotime($datenow)));
             $query=$this->db->query("SELECT * FROM schedule WHERE datearray='$datetomorrow' AND notify='0'");
             if($query->num_rows() > 0){
                 $row=$query->result_array();
                 foreach($row as $item){
-                    
+                    $id=$item['id'];
+                    $regno=$item['regno'];
+                    $qry=$this->db->query("SELECT c.email,c.lastname,c.firstname FROM customer c INNER JOIN enrollee e ON e.customer_no=c.customer_no WHERE e.regno='$regno'");
+                    $res=$qry->row_array();
+                    $email=$res['email'];
+                    $name=$res['firstname']." ".$res['lastname'];
+                    $subject="Driving Tutorial Session Update";
+                    $from="Flores 1 on 1 Driving School";
+                    $message="Hello $name!, We are please to inform you that your driving session tomorrow ".date('F d, Y',strtotime($datetomorrow)).", ".date('h:i A',strtotime($item['starttime']))." to ".date('h:i A',strtotime($item['starttime']))." will commence and end respectively.";
+                    $this->load->library('email',$config);
+                    $this->email->set_newline("\r\n");
+                    $this->email->from($from);
+                    $this->email->to($email);
+                    $this->email->subject($subject);
+                    $this->email->message($message);
+                    if($this->email->send()){
+                        $this->db->query("UPDATE schedule SET notify='1' WHERE id='$id'");
+                    }
                 }
             }
+        }
+        public function update_profile(){
+            $customer_no=$this->input->post('customer_no');
+            $username=$this->input->post('username');
+            $password=$this->input->post('password');
+            $lastname=$this->input->post('lastname');
+            $firstname=$this->input->post('firstname');
+            $middlename=$this->input->post('middlename');
+            $gender=$this->input->post('gender');            
+            $birthdate=$this->input->post('birthdate');
+            $address=$this->input->post('address');
+            $email=$this->input->post('email');
+            $contactno=$this->input->post('contactno');
+            $fullname=$firstname." ".$lastname;
+            $check=$this->db->query("SELECT * FROM user WHERE username='$username' AND customer_no <> '$customer_no'");
+            if($check->num_rows()>0){
+                return false;
+            }else{
+                $result=$this->db->query("UPDATE customer SET lastname='$lastname',firstname='$firstname',middlename='$middlename',gender='$gender',birthdate='$birthdate',`address`='$address',email='$email',contactno='$contactno' WHERE customer_no='$customer_no'");
+                if($result){
+                    $this->db->query("UPDATE user SET username='$username',`password`='$password',fullname='$fullname' WHERE customer_no='$customer_no'");
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }
+        public function getAllUserChat(){
+            $username=$this->session->username;
+            $result=$this->db->query("SELECT * FROM chat WHERE sender='$username' OR receiver='$username' ORDER BY datearray ASC,timearray ASC");
+            return $result->result_array();
+        }
+        public function getAllAdminChat(){            
+            $result=$this->db->query("SELECT * FROM chat WHERE sender='admin' OR receiver='admin' ORDER BY datearray ASC,timearray ASC");
+            return $result->result_array();
+        }
+        public function save_chat(){
+            $sender=$this->session->username;
+            $receiver="admin";
+            $message=$this->input->post('message');
+            $date=date('Y-m-d');
+            $time=date('H:i:s');
+            $this->db->query("INSERT INTO chat(`message`,sender,receiver,datearray,timearray) VALUES('$message','$sender','$receiver','$date','$time')");
+            return true;
+        }
+        public function save_chat_admin(){
+            $sender="admin";
+            $receiver=$this->input->post('receiver');;
+            $message=$this->input->post('message');
+            $date=date('Y-m-d');
+            $time=date('H:i:s');
+            $this->db->query("INSERT INTO chat(`message`,sender,receiver,datearray,timearray) VALUES('$message','$sender','$receiver','$date','$time')");
+            return true;
+        }
+        public function getAllMessages(){
+            $result=$this->db->query("SELECT * FROM chat WHERE receiver='admin' GROUP BY sender ORDER BY datearray DESC");
+            return $result->result_array();
+        }     
+        public function update_chat_status($sender){
+            $this->db->query("UPDATE chat SET `status`='seen' WHERE sender='$sender'");
         }
     }
 ?>

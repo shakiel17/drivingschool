@@ -17,10 +17,10 @@
             <svg class="nav-icon">
               <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-calendar"></use>
             </svg> Enrollment</a></li>
-        <!-- <li class="nav-item"><a class="nav-link" href="<?=base_url();?>user_payment">
+        <li class="nav-item"><a class="nav-link" href="<?=base_url();?>user_chat">
             <svg class="nav-icon">
-              <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-money"></use>
-            </svg> Payments</a></li> -->
+              <use xlink:href="<?=base_url();?>design/assets/vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+            </svg> Chat Support</a></li>
         <!-- <li class="nav-title">Components</li>
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
             <svg class="nav-icon">
