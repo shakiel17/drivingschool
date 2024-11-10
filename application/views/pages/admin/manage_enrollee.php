@@ -15,6 +15,7 @@
                             <th class="font-weight-bold">Registration No.</th>
                             <th class="font-weight-bold">Enrollee Name</th>
                             <th class="font-weight-bold">Payment Type</th>                            
+                            <th class="font-weight-bold">No. of Session</th>
                             <th class="font-weight-bold">Status</th>
                             <th class="font-weight-bold">Session</th>
                             <th class="font-weight-bold">Action</th>
@@ -27,16 +28,19 @@
                                     $query=$this->School_model->db->query("SELECT * FROM schedule WHERE regno='$item[regno]' AND (`status`='pending' OR `status`='ongoing')");
                                     $res=$query->result_array();
                                     $sess=count($res);
-                                    if($item['payment_type']=="full"){
-                                        $payment="Full Payment";
-                                    }else{
-                                        $payment="Per Session";
-                                    }
+                                    
+                                    $pay=explode('_',$item['payment_type']);
+                                        if($pay[0]=="full"){
+                                            $type="Full Payment";
+                                        }else{
+                                            $type="Per Session";
+                                        }
                                     echo "<tr>";
                                         echo "<td>$x.</td>";
                                         echo "<td>$item[regno]</td>";
                                         echo "<td>$item[lastname], $item[firstname]</td>";
-                                        echo "<td>$payment</td>";
+                                        echo "<td>$type</td>";
+                                        echo "<td align='center'>$pay[1]</td>";
                                         echo "<td>$item[status]</td>";
                                         echo "<td align='center'><a href='".base_url()."manage_user_session/$item[regno]' class='btn btn-info btn-sm'>$sess remaining</a></td>";
                                         ?>

@@ -199,7 +199,9 @@
             $customer_no=$res['customer_no'];
             $regno=date('YmdHis');
             $payment_type=$this->input->post('payment_type');
-            $amount=6000;
+            $session_no=$this->input->post('session_no');
+            $payment_type=$payment_type."_".$session_no;
+            $amount=1000*$session_no;
             $date=date('Y-m-d');
             $time=date('H:i:s');
             $result=$this->db->query("INSERT INTO enrollee(regno,customer_no,payment_type,amount,datearray,timearray) VALUES('$regno','$customer_no','$payment_type','$amount','$date','$time')");

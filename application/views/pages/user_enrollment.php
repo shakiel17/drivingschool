@@ -58,6 +58,7 @@
                                     </th>
                                     <th>Enrollment ID</th>
                                     <th>Payment Type</th>
+                                    <th>No. of Session</th>
                                     <th class="text-center">Amount</th>
                                     <th class="text-center">Total Amount Paid</th>
                                     <th class="text-center">Date & Time</th>
@@ -74,7 +75,8 @@
                                         foreach($query as $row){
                                             $totalpayment += $row['amount'];
                                         }
-                                        if($item['payment_type']=="full"){
+                                        $pay=explode('_',$item['payment_type']);
+                                        if($pay[0]=="full"){
                                             $type="Full Payment";
                                         }else{
                                             $type="Per Session";
@@ -83,12 +85,13 @@
                                             echo "<td>$x.</td>";
                                             echo "<td>$item[regno]</td>";
                                             echo "<td>$type</td>";
+                                            echo "<td align='center'>$pay[1]</td>";
                                             echo "<td align='right'>".number_format($item['amount'],2)."</td>";
                                             echo "<td align='right'>".number_format($totalpayment,2)."</td>";
                                             echo "<td align='center'>".date('m/d/Y',strtotime($item['datearray']))." ".date('h:i A',strtotime($item['timearray']))."</td>";
                                             echo "<td align='center'>$item[status]</td>";
                                             ?>
-                                            <td align="center"><a href="<?=base_url();?>user_payment/<?=$item['regno'];?>" class="btn btn-primary btn-sm">Payment</a> <a href="<?=base_url();?>user_session/<?=$item['regno'];?>" class="btn btn-info btn-sm text-white">Session</a></td>
+                                            <td align="center"><a href="<?=base_url();?>user_payment/<?=$item['regno'];?>" class="btn btn-primary btn-sm">Payment</a> <a href="<?=base_url();?>user_session/<?=$item['regno'];?>/<?=$pay[1];?>" class="btn btn-info btn-sm text-white">Session</a></td>
                                             <?php
                                         echo "</tr>";
                                         $x++;

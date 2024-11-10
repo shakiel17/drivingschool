@@ -108,7 +108,7 @@
             }
             redirect(base_url()."user_enrollment");
         } 
-        public function user_session($regno){
+        public function user_session($regno,$session_no){
             $page = "user_session";
             if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
                 show_404();
@@ -119,6 +119,7 @@
                 redirect(base_url());
             }    
             $data['regno'] = $regno;                    
+            $data['session_no'] = $session_no; 
             $data['items'] = $this->School_model->getAllSession($regno);  
             $data['cars'] = $this->School_model->getAllCars();
             $data['teach'] = $this->School_model->getAllInstructors();
@@ -141,9 +142,11 @@
                 redirect(base_url());
             }            
             $regno = $this->input->post('regno');
+            $session_no = $this->input->post('session_no');
             $trans_type = $this->input->post('trans_type');
             $instructor = $this->input->post('instructor');
             $data['regno'] = $regno;
+            $data['session_no'] = $session_no;
             $data['trans_type'] = $trans_type;
             $data['instructor'] = $instructor;
             $data['car_id']="";
@@ -168,10 +171,12 @@
                 redirect(base_url());
             }            
             $regno = $this->input->post('regno');
+            $session_no = $this->input->post('session_no');
             $trans_type = $this->input->post('trans_type');
             $instructor = $this->input->post('instructor');
             $car=$this->input->post('car');
             $data['regno'] = $regno;
+            $data['session_no'] = $session_no;
             $data['trans_type'] = $trans_type;
             $data['instructor'] = $instructor;
             $data['car_id'] = $car;
@@ -196,6 +201,7 @@
                 redirect(base_url());
             }            
             $regno = $this->input->post('regno');
+            $session_no = $this->input->post('session_no');
             $trans_type = $this->input->post('trans_type');
             $instructor = $this->input->post('instructor');
             $car=$this->input->post('car');
@@ -218,6 +224,7 @@
                 }                
             }
             $data['regno'] = $regno;
+            $data['session_no'] = $session_no;
             $data['trans_type'] = $trans_type;
             $data['instructor'] = $instructor;
             $data['car_id'] = $car;
@@ -231,7 +238,7 @@
             $this->load->view('templates/user/modal');
             $this->load->view('templates/user/footer');
         }
-        public function remove_session($id,$regno){
+        public function remove_session($id,$regno,$session_no){
             $remove=$this->School_model->remove_session($id);
             if($remove){
                 $this->session->set_flashdata('success','Session successfully removed!');

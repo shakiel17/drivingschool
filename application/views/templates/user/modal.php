@@ -32,6 +32,18 @@
             <option value="full">Full Payment</option>
             <option value="partial">Per Session</option>
           </select>
+        </div>
+        <div class="mb-4">
+          <label class="col-form-label">No. of Session</label>
+          <select name="session_no" class="form-control" required>
+            <option value="">Select No. of Session</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
         </div>        
       </div>
       <div class="modal-footer">
@@ -52,6 +64,7 @@
         </div>
         <?=form_open(base_url()."new_session");?>
         <input type="hidden" name="regno" value="<?=$regno;?>">
+        <input type="hidden" name="session_no" value="<?=$session_no;?>">
       <div class="modal-body">
         <div class="mb-4">
           <label class="col-form-label">Transmission</label>

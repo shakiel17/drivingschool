@@ -6,7 +6,7 @@
                 <!-- if breadcrumb is single--><a href="<?=base_url();?>user_main" style="text-decoration:none;color:black;"><span>Home</span></a>
               </li>
               <li class="breadcrumb-item"><a href="<?=base_url();?>user_enrollment" style="text-decoration:none;color:black;"><span>Enrollment History</span></a></li>
-              <li class="breadcrumb-item"><a href="<?=base_url();?>user_session/<?=$regno;?>" style="text-decoration:none;color:black;"><span>Session List</span></a></li>
+              <li class="breadcrumb-item"><a href="<?=base_url();?>user_session/<?=$regno;?>/<?=$session_no;?>" style="text-decoration:none;color:black;"><span>Session List</span></a></li>
               <li class="breadcrumb-item active"><span>Session Details</span></li>
             </ol>
           </nav>
@@ -52,6 +52,7 @@
                                 </tr>
                                 <?=form_open(base_url()."select_car_session");?>
                                 <input type="hidden" name="regno" value="<?=$regno;?>">
+                                <input type="hidden" name="session_no" value="<?=$session_no;?>">
                                 <input type="hidden" name="trans_type" value="<?=$trans_type;?>">
                                 <input type="hidden" name="instructor" value="<?=$instructor;?>">
                                 <tr>
@@ -84,6 +85,7 @@
                                <table width="100%" border="0">
                                <?=form_open(base_url()."select_session_datetime");?>
                                <input type="hidden" name="regno" value="<?=$regno;?>">
+                               <input type="hidden" name="session_no" value="<?=$session_no;?>">
                                 <input type="hidden" name="trans_type" value="<?=$trans_type;?>">
                                 <input type="hidden" name="instructor" value="<?=$instructor;?>">
                                 <input type="hidden" name="car" value="<?=$car_id;?>">
@@ -139,6 +141,7 @@
                                         for($i=1;$i<=date('t',strtotime($datetime));$i++){
                                             echo form_open(base_url()."select_session_datetime"); 
                                             echo '<input type="hidden" name="regno" value="'.$regno.'">';
+                                            echo '<input type="hidden" name="session_no" value="'.$session_no.'">';
                                             echo '<input type="hidden" name="trans_type" value="'.$trans_type.'">';
                                             echo '<input type="hidden" name="instructor" value="'.$instructor.'">';
                                             echo '<input type="hidden" name="car" value="'.$car_id.'">';                                            
@@ -150,7 +153,7 @@
                                             $pm="<input type='submit' class='btn btn-warning btn-sm text-white' name='pm_session' value='PM SESSION (2-4:30)'>";
                                             $count=$this->School_model->db->query("SELECT * FROM schedule WHERE regno='$regno'");
                                             $rcount=$count->result_array();
-                                            if(count($rcount) >= 6){
+                                            if(count($rcount) >= $session_no){
                                                 $am="<font color='orange'>Session Limit Reached!</font>";
                                                 $pm="<font color='orange'>Session Limit Reached!</font>";
                                             }
