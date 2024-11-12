@@ -30,17 +30,23 @@
                                     $sess=count($res);
                                     
                                     $pay=explode('_',$item['payment_type']);
-                                        if($pay[0]=="full"){
+                                    $pay1=$pay[0];
+                                    $pay2=0;
+                                    if(sizeof($pay) > 1){
+                                      $pay1=$pay[0];
+                                      $pay2=$pay[1];
+                                    }
+                                        if($pay1=="full"){
                                             $type="Full Payment";
                                         }else{
                                             $type="Per Session";
-                                        }
+                                        }                                        
                                     echo "<tr>";
                                         echo "<td>$x.</td>";
                                         echo "<td>$item[regno]</td>";
                                         echo "<td>$item[lastname], $item[firstname]</td>";
                                         echo "<td>$type</td>";
-                                        echo "<td align='center'>$pay[1]</td>";
+                                        echo "<td align='center'>$pay2</td>";
                                         echo "<td>$item[status]</td>";
                                         echo "<td align='center'><a href='".base_url()."manage_user_session/$item[regno]' class='btn btn-info btn-sm'>$sess remaining</a></td>";
                                         ?>
